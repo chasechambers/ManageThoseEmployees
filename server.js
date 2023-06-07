@@ -2,7 +2,7 @@
 // Import and require mysql2
 const mysql = require('mysql2');
 const viewAllDepartments = 'SELECT * FROM department;';
-const Employee = require('./query')
+const Employee = require('./employee')
 
 // Connect to database
 const db = mysql.createConnection(
@@ -23,9 +23,11 @@ db.query(viewAllDepartments, function (err, results) {
 });
 
 const employee1 = new Employee();
-console.log(employee1.getEmployeeIdQuery('john', 'smith'));
+console.log(employee1.getEmployeeInfoQuery());
 
 // Returns employee ID
-db.query(employee1.getEmployeeIdQuery('john', 'smith'), function (err, results) {
+db.query(employee1.getEmployeeInfoQuery(), function (err, results) {
   console.log(results);
-})
+  employee1.updateEmployeeInfo(results[0]);
+});
+
