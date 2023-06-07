@@ -1,5 +1,5 @@
 -- VIEW ALL DEPARTMENTS
-SELECT * FROM department;
+const viewAllDepartments = 'SELECT * FROM department;'
 
 -- VIEW ALL ROLES
 SELECT role.id, title, salary, department_name FROM role
