@@ -72,30 +72,26 @@ inquirer
       name: "database_election",
       type: "list",
       message: "What do you want to do?",
-      choices: ["View All Departments", "View All Roles", "View All Employees", "Add a New Department", "Add a New Role", "Add a New Employee", "Update Employee Role"],
+      choices: ["View All Departments", "View All Roles", "View All Employees", "Add a New Department", "Add a New Role", "Add a New Employee", "Update Employee Role", "Exit"],
     },
   ])
   .then((answer) => {
     if (answer.database_election === 'View All Departments') {
         databaseViewAll();
-        
     } else if (answer.database_election === 'View All Roles') {
-        roleViewAll();
-        // showTables();
+        roleViewAll();      
     } else if (answer.database_election === 'View All Employees') {
         employeeViewAll();
-        // showTables();
     } else if (answer.database_election === 'Add a New Department') {
-        addDepartmentPrompt();
-        // showTables();
+        addDepartmentPrompt();       
     } else if (answer.database_election === 'Add a New Employee') {
         addEmployeePrompt();
-        // showTables();
     } else if (answer.database_election === 'Add a New Role') {
         addRolePrompt();
-        // showTables();
     } else if (answer.database_election === 'Update Employee Role') {
         updateEmployeeRole();
+    } else if (answer.database_election === 'Exit') {
+        process.exit();
     }
     });
   };
