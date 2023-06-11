@@ -7,19 +7,26 @@ JOIN department ON role.department_id = department.id;
 
 -- VIEW ALL EMPLOYEES
 SELECT 
-employee.id, 
-first_name,
-last_name,
+e.id, 
+e.first_name,
+e.last_name,
 role.title,
 department.department_name,
 role.salary,
-(SELECT A.last_name
-FROM employee A
-JOIN employee B
-WHERE A.id = B.manager_id)
-AS manager_name
-FROM employee
+m.first_name AS manager_first_name,
+m.last_name AS manager_last_name
+FROM employee e
+LEFT JOIN employee m ON e.manager_id = m.id
 JOIN role ON employee.role_id = role.id
+JOIN department ON role.department_id = department.id;
+
+-- VIEW ROLES
+SELECT
+role.title,
+role.salary,
+role.id,
+department_name
+FROM role
 JOIN department ON role.department_id = department.id;
 
 -- ADD DEPARTMENT

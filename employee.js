@@ -16,15 +16,18 @@ class Employee {
     };
 
     getEmployeeInfoQuery = () => {
-        return `SELECT
-        employee.id, 
-        first_name,
-        last_name,
+        return `SELECT 
+        e.id, 
+        e.first_name,
+        e.last_name,
         role.title,
         department.department_name,
-        role.salary
-        FROM employee
-        JOIN role ON employee.role_id = role.id
+        role.salary,
+        m.first_name AS manager_first_name,
+        m.last_name AS manager_last_name
+        FROM employee e
+        LEFT JOIN employee m ON e.manager_id = m.id
+        JOIN role ON e.role_id = role.id
         JOIN department ON role.department_id = department.id;`
     };
 
