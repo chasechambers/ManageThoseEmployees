@@ -18,23 +18,10 @@ const db = mysql.createConnection(
   console.log(`Connected to the employee_db database.`)
 );
 
-// Query database
-db.query(viewAllDepartments, function (err, results) {
- 
-});
-
-const employee1 = new Employee();
-
 
 // VIEW FUNCTIONS
 
-// Returns employee ID
-const employeeViewAll = () => { db.query(employee1.getEmployeeInfoQuery(), function (err, results) {
-  console.table(results);
-  showTables();
-});
-};
-
+//CODE TO SHOW ALL DEPARTMENTS
 const databaseViewAll = () => {
   db.query('SELECT * FROM department;', function (err, results) {
     console.table(results);
@@ -42,6 +29,7 @@ const databaseViewAll = () => {
   });
 };
 
+// CODE TO SHOW ALL ROLES
 const roleViewAll = () => {
   db.query(`SELECT
   role.title,
@@ -55,11 +43,25 @@ const roleViewAll = () => {
   });
 };
 
-// ADD TO TABLE FUNCTIONS
+// CODE TO SHOW ALL EMPLOYEES
 
-const addDepartment = () => {
-  addDepartmentQuery();
-}
+const employeeViewAll = () => { db.query(`SELECT 
+e.id, 
+e.first_name,
+e.last_name,
+role.title,
+department.department_name,
+role.salary,
+m.first_name AS manager_first_name,
+m.last_name AS manager_last_name
+FROM employee e
+LEFT JOIN employee m ON e.manager_id = m.id
+JOIN role ON e.role_id = role.id
+JOIN department ON role.department_id = department.id;`, function (err, results) {
+  console.table(results);
+  showTables();
+});
+};
 
 // INQUIRER FUNCTIONS/PROMPTS
 
@@ -97,7 +99,9 @@ inquirer
     }
     });
   };
-    
+  
+  // ADDS NEW DEPARTMENT
+
 const addDepartmentPrompt = () => {
   inquirer.prompt([
     {
@@ -112,9 +116,12 @@ const addDepartmentPrompt = () => {
     VALUES ('${answer.add_department}');`, function (err, results) 
     {
       console.log(`${answer.add_department} has been added!`);
+      showTables();
     });
   });
 };
+
+// ADDS NEW ROLE
 
 const addRolePrompt = () => {
   inquirer.prompt([
@@ -140,10 +147,12 @@ const addRolePrompt = () => {
     VALUES ('${answer.add_role_name}', ${answer.role_salary}, ${answer.department_id});`, function (err, results) 
     {
       console.log(`${answer.add_role_name} has been added!`);
+      showTables();
     });
   });
 };
 
+// ADDS NEW EMPLOYEE
 
 const addEmployeePrompt = () => {
   inquirer.prompt([
@@ -179,6 +188,8 @@ const addEmployeePrompt = () => {
   });
 };
 
+// UPDATES EMPLOYEE ROLE
+
 const updateEmployeeRole = () => {
   inquirer.prompt([
     {
@@ -197,7 +208,7 @@ const updateEmployeeRole = () => {
     db.query(`UPDATE employee SET role_id = '${answer.employee_role}' WHERE id = ${answer.employee_id};`, function (err, results) 
     {
       console.log(`Employee role has been updated!`);
-      showTables();
+      showTables(); //RUNS CODE AFTER EVERYTHING DONE
     });
   });
 };
