@@ -22,7 +22,7 @@ const db = mysql.createConnection(
 const databaseViewAll = () => {
   db.query('SELECT * FROM department;', function (err, results) {
     console.table(results);
-    showTables();
+     showTables();
   });
 };
 
@@ -70,11 +70,12 @@ inquirer
       type: "list",
       message: "What do you want to do?",
       choices: ["View All Departments", "View All Roles", "View All Employees", "Add a New Department", "Add a New Role", "Add a New Employee", "Update Employee Role", "Exit"],
-    },
+    }
   ])
   .then((answer) => {
     if (answer.database_election === 'View All Departments') {
         databaseViewAll();
+      
     } else if (answer.database_election === 'View All Roles') {
         roleViewAll();      
     } else if (answer.database_election === 'View All Employees') {

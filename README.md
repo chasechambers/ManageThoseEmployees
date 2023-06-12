@@ -24,6 +24,10 @@ This project works with using node js and answering questions through an inquire
 
 ## Usage
 
+https://github.com/chasechambers/ManageThoseEmployees - repo link
+https://drive.google.com/file/d/1KsDHwymULrxy1uZJqTQ60i5yPDEma3pQ/view - Video of program working
+
+![example_code](./assets/example.jpg);
 
 
 ## Credits
