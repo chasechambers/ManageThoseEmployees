@@ -1,8 +1,5 @@
-
 // Import and require mysql2
 const mysql = require('mysql2');
-const viewAllDepartments = 'SELECT * FROM department;';
-const Employee = require('./employee')
 const inquirer = require('inquirer');
 
 // Connect to database
